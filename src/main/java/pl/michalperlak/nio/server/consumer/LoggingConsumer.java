@@ -7,9 +7,9 @@ public class LoggingConsumer<S> implements Consumer<S> {
     private final PrintStream log;
     private final Consumer<S> other;
 
-    public LoggingConsumer(PrintStream log, Consumer<S> other) {
+    public LoggingConsumer(PrintStream log, Consumer<S> consumer) {
         this.log = log;
-        this.other = other;
+        this.other = consumer;
     }
 
     @Override

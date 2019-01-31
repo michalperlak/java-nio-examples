@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class ServerDemoApp {
     public static void main(String[] args) throws IOException {
-        var server = new BlockingSingleThreadServer();
+        var server = new BlockingMultiThreadServer();
         server.start(9090);
     }
 }

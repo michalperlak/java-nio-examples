@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class ServerDemoApp {
     public static void main(String[] args) throws IOException {
-        var server = new BlockingThreadPoolServer();
+        var server = new BlockingNIOServer();
         server.start(9090);
     }
 }

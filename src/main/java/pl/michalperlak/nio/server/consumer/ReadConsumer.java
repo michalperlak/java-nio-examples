@@ -1,15 +1,13 @@
 package pl.michalperlak.nio.server.consumer;
 
 import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.SocketChannel;
 import java.util.Map;
 import java.util.Queue;
-import java.util.function.Consumer;
 
-public class ReadConsumer implements Consumer<SelectionKey> {
+public class ReadConsumer extends UncheckedIOConsumer<SelectionKey> {
     private final Map<SocketChannel, Queue<ByteBuffer>> pendingData;
 
     public ReadConsumer(Map<SocketChannel, Queue<ByteBuffer>> pendingData) {
@@ -17,15 +15,7 @@ public class ReadConsumer implements Consumer<SelectionKey> {
     }
 
     @Override
-    public void accept(SelectionKey selectionKey) {
-        try {
-            acceptImpl(selectionKey);
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-    private void acceptImpl(SelectionKey selectionKey) throws IOException {
+    protected void acceptImpl(SelectionKey selectionKey) throws IOException {
         var socketChannel = (SocketChannel) selectionKey.channel();
         var buffer = ByteBuffer.allocateDirect(80);
         var read = socketChannel.read(buffer);
